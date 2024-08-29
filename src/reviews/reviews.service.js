@@ -8,7 +8,7 @@ async function destroy(reviewId) {
 }
 
 async function list(movie_id) {
-  return db("reviews").select("*").where({ movie_id: movieId });
+  return db("reviews").select("*");
 }
 
 async function read(reviewId) {
