@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Register routers
-app.use('/', moviesRouter);
+// app.use('/', moviesRouter);
 app.use('/movies', moviesRouter);
 app.use('/theaters', theatersRouter);
 app.use('/reviews', reviewsRouter);
