@@ -5,14 +5,9 @@ const methodNotAllowed = require("../errors/methodNotAllowed");
 // Route to handle all reviews
 router
     .route("/")
-    .get(controller.listReviewsForMovie)  // List all reviews
+    .get(controller.listReviewsForMovie)
     .all(methodNotAllowed);
 
-// Route to handle reviews for a specific movie
-router
-    .route("/movies/:movieId/reviews")
-    .get(controller.listReviewsForMovie) // List reviews for a specific movie
-    .all(methodNotAllowed);
 
 // Routes for specific review operations
 router
@@ -21,4 +16,11 @@ router
     .put(controller.update)
     .all(methodNotAllowed);
 
+// Routes for specific review operations
+router
+    .route("/reviews")
+    .get(controller.list)
+    .delete(controller.destroy)
+    .put(controller.update)
+    .all(methodNotAllowed);
 module.exports = router;
