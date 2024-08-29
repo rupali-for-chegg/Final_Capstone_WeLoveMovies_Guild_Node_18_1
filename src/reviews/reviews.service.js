@@ -7,16 +7,17 @@ async function destroy(reviewId) {
   return db(tableName).where({ review_id: reviewId }).del();
 }
 
-async function list(movie_id) {
-  return db("reviews").select("*");
+async function list(movieId) {
+  // Ensure the parameter name matches the one used in the query
+  return db(tableName).select("*").where({ movie_id: movieId });
 }
 
 async function read(reviewId) {
   return db(tableName).select("*").where({ review_id: reviewId }).first();
 }
 
-async function readCritic(critic_id) {
-  return db("critics").where({ critic_id }).first();
+async function readCritic(criticId) {
+  return db("critics").where({ critic_id: criticId }).first();
 }
 
 async function setCritic(review) {
@@ -33,6 +34,7 @@ async function update(review) {
 }
 
 async function listReviewsForMovie(movieId) {
+  // Ensure the column names are correct and exist in the database
   const addCritic = mapProperties({
     critic_id: "critic.critic_id",
     preferred_name: "critic.preferred_name",
@@ -43,9 +45,9 @@ async function listReviewsForMovie(movieId) {
   });
 
   const reviews = await db("reviews as r")
-      .select("*")
+      .select("r.*", "c.preferred_name", "c.surname", "c.organization_name") // Select specific columns
       .join("critics as c", "r.critic_id", "c.critic_id")
-      .where({ "r.movie_id": movieId });
+      .where("r.movie_id", movieId); // Make sure to use correct column reference
 
   return reviews.map(addCritic);
 }

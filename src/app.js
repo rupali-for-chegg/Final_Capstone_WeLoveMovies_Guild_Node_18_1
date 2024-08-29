@@ -15,9 +15,14 @@ app.use(cors());
 app.use(express.json());
 
 // Register routers
+
 app.use('/movies', moviesRouter);
 app.use('/theaters', theatersRouter);
 app.use('/reviews', reviewsRouter);
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the Movie Review API!');
+});
 
 // 404 Not Found handler
 app.use((req, res, next) => {
