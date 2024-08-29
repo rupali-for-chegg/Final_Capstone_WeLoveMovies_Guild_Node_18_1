@@ -17,10 +17,5 @@ router
     .all(methodNotAllowed);
 
 // Routes for specific review operations
-router
-    .route("/reviews")
-    .get(controller.list)
-    .delete(controller.destroy)
-    .put(controller.update)
-    .all(methodNotAllowed);
+
 module.exports = router;
